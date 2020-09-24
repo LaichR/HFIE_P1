@@ -9,15 +9,16 @@
 
 #define countof(x) sizeof x / sizeof x[0]
 
-char FindMaxFrequentChar(const uint32_t* histogram, uint32_t size);
+uint32_t FindMaxFrequentElement(const uint32_t* histogram, uint32_t size, uint32_t* index );
 
 uint32_t histogram[256];
-const char path[] = "C:\\Users\\rolfl\\OneDrive - GIBZ\\HFIE\\StrukturierteProgrammierung\\Übungsmaterial\\";
+const char *path = "C:\\Users\\rolfl\\OneDrive - GIBZ\\HFIE\\StrukturierteProgrammierung\\Übungsmaterial\\";
 char pathBuffer[1024];
 
 //int main()
 int main(int argc, const char *args[], const char *envP[])
 {
+	
 	printf("hello world\n");
 
 	strcpy_s(pathBuffer, sizeof pathBuffer, path);
@@ -61,25 +62,27 @@ int main(int argc, const char *args[], const char *envP[])
 		}
 	}
 
-	printf("häufigstes Zeichen = '%c'", FindMaxFrequentChar(histogram, countof(histogram)));
+	uint32_t max_index = 0;
+	uint32_t max = FindMaxFrequentElement(histogram, countof(histogram), &max_index);
+	printf("häufigstes Zeichen = '%c'; vorkommen: %i\n", (char)max_index, max);
 
 }
 
-char FindMaxFrequentChar(const uint32_t* histogram, uint32_t size)
+uint32_t FindMaxFrequentElement(const uint32_t* histogram, uint32_t size, uint32_t* index)
 {
 	assert(size > 0);
 	uint32_t maxCount = histogram[0];
-	uint32_t maxIndex = 0;
+	*index = 0;
 	uint32_t i = 1;
 	for (; i < size; i++)
 	{
 		if (histogram[i] > maxCount)
 		{
 			maxCount = histogram[i];
-			maxIndex = 0;
+			*index = i;
 		}
 	}
-	return histogram[maxIndex];
+	return maxCount;
 }
 
 
