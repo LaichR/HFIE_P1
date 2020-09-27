@@ -10,6 +10,30 @@
 
 uint32_t BitshiftLeft(uint32_t nr, uint8_t pos);
 
+// Beispiele für strukturen, funktionen und verwendung der Strukturen
+typedef struct
+{
+	int32_t x;
+	int32_t y;
+}PointT;
+
+typedef struct
+{
+	PointT TopLeft; // assume that TopLeft.X < BottomRight.X and TopLeft.Y < BottomRight.Y;
+	PointT BottomRight;
+}RectangleT;
+
+
+uint32_t Area(const RectangleT* rect)
+{
+	uint32_t width = rect->BottomRight.x - rect->TopLeft.x;
+	uint32_t height = rect->BottomRight.y - rect->TopLeft.y;
+	return width * height;
+}
+
+
+
+
 
 char* AllocAndPtrint(const char* str);
 
