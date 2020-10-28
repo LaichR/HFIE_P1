@@ -9,7 +9,6 @@ uint8_t CheckIfPalindrom(const char* palindrom);
 
 int main()
 {
-    double x = 1e-10;
     printf("hello world\n");
     uint8_t isPalindrom = CheckIfPalindrom("anna");
     printf("it was a plindrom %i", isPalindrom);
