@@ -19,11 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LinkedIntegerList.h" />
     <ClInclude Include="IntegerList.h" />
+    <ClInclude Include="LinkedIntegerList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IntegerList.c" />
+    <ClCompile Include="LinkedIntegerList.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

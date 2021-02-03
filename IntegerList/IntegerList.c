@@ -46,12 +46,42 @@ void List_Release(IntegerList* list)
 void List_Append(IntegerList* list, int32_t element)
 {
 	// @todo
+	if (list->Count >= list->_capacity)
+	{
+		int32_t* p = list->_data;
+		AllocateListData(list, list->_capacity * 2);
+		memcpy(list->_data, p, list->Count * sizeof(int32_t));
+		free(p);
+	}
+	list->_data[list->Count] = element;
+	list->Count++;
 }
 
 
 void List_InsertAt(IntegerList* list, uint32_t index, int32_t element)
 {
 	// @todo
+	int32_t* data = list->_data;
+	int32_t* toFree = NULL;
+	if (list->Count >= list->_capacity)
+	{
+		toFree = data;
+		AllocateListData(list, list->_capacity * 2);
+		if (index > 0)
+		{
+			memcpy(list->_data, toFree, index * sizeof(int32_t));
+		}
+	}
+	for (uint32_t i = list->Count; i > index; i--)
+	{
+		list->_data[i] = data[i - 1];
+	}
+	list->_data[index] = element;
+	list->Count++;
+	if (toFree != NULL)
+	{
+		free(data);
+	}
 }
 
 /**
@@ -60,16 +90,30 @@ void List_InsertAt(IntegerList* list, uint32_t index, int32_t element)
 bool List_RemoveAt(IntegerList* list, uint32_t index)
 {
 	// @todo
-	return true;
+	if (index < list->Count)
+	{
+		for (uint32_t i = index; i < list->Count - 1; i++)
+		{
+			list->_data[i] = list->_data[i + 1];
+		}
+		list->Count--;
+		return true;
+
+	}
+	return false;
 }
 
 
 /**
-* get the element at lindex
+* get the element at index
 */
 int32_t List_GetAt(const IntegerList* list, uint32_t index)
 {
 	// @todo
+	if (index < list->Count)
+	{
+		return list->_data[index];
+	}
 	return LONG_MIN;
 }
 
